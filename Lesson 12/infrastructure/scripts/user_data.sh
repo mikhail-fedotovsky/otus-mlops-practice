@@ -111,10 +111,11 @@ TARGET_BUCKET=${s3_bucket}
 
 # Копируем конкретный файл из исходного бакета в наш новый бакет
 log "Copying file from source bucket to destination bucket"
-FILE_NAME="2022-11-04.txt"
+FILE_NAME=${file_name}
 s3cmd cp \
     --config=/home/ubuntu/.s3cfg \
     --acl-public \
+    --recursive \
     s3://otus-mlops-source-data/$FILE_NAME \
     s3://$TARGET_BUCKET/$FILE_NAME
 
@@ -165,4 +166,6 @@ log "Script upload_data_to_hdfs.sh has been copied to the master node"
 log "Changing ownership of log file"
 sudo chown ubuntu:ubuntu /home/ubuntu/user_data_execution.log
 
+
+ssh -i /home/ubuntu/.ssh/dataproc_key -o StrictHostKeyChecking=no ubuntu@$DATAPROC_MASTER_FQDN "bash /home/ubuntu/upload_data_to_hdfs.sh $FILE_NAME"
 log "User data script execution completed"

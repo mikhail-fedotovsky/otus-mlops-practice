@@ -81,6 +81,11 @@ variable "yc_dataproc_version" {
   description = "Version of Dataproc"
 }
 
+variable "file_name" {
+  type        = string
+  description = "File name for copy from S3 to HDFS"
+}
+
 variable "public_key_path" {
   type        = string
   description = "Path to the public key file"

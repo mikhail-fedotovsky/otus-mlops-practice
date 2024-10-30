@@ -197,6 +197,7 @@ resource "yandex_compute_instance" "proxy" {
       access_key                  = yandex_iam_service_account_static_access_key.sa-static-key.access_key
       secret_key                  = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
       s3_bucket                   = yandex_storage_bucket.data_bucket.bucket
+      file_name                   = var.file_name
       upload_data_to_hdfs_content = file("${path.root}/scripts/upload_data_to_hdfs.sh")
     })
   }
